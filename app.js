@@ -247,6 +247,13 @@ function loadEmbeddedModel() {
     const objectURL = URL.createObjectURL(blob);
 
     const loader = new THREE.GLTFLoader();
+
+    // Configurar DRACOLoader para modelos comprimidos con Draco
+    const dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
+    dracoLoader.setDecoderConfig({ type: 'js' });
+    loader.setDRACOLoader(dracoLoader);
+
     loader.load(objectURL, (gltf) => {
         onModelLoaded(gltf);
         URL.revokeObjectURL(objectURL);
