@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerebro 3D Interactivo: Anatomía del Aprendizaje</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Pantalla de Carga -->
+    <div id="loader-screen">
+        <div class="loader-content">
+            <div class="loader-brain-icon">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <h2>Cargando Cerebro 3D...</h2>
+            <p>Procesando modelo anatómico de alta definición...</p>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="app-container">
+        
+        <!-- PANEL LATERAL SIMPLIFICADO -->
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <div class="badge">RECURSO EDUCATIVO UNIVERSITARIO</div>
+                <h1>El Cerebro y el Aprendizaje</h1>
+                <p class="subtitle">Anatomía 3D del Aprendizaje</p>
+            </header>
+
+            <div class="menu-sections">
+                <!-- VISTA GENERAL BUTTON -->
+                <button id="btn-global-view" class="menu-btn active">
+                    <i class="fa-solid fa-brain"></i> Vista General
+                </button>
+
+                <!-- CORTEZA CEREBRAL SECTION -->
+                <div class="menu-section">
+                    <h3 class="section-title" id="title-corteza"><i class="fa-solid fa-layer-group"></i> Corteza Cerebral</h3>
+                    <div class="structure-list">
+                        <div class="structure-item" data-structure="frontal">
+                            <div class="structure-color-dot" style="background-color: var(--color-frontal);"></div>
+                            <span>Lóbulo Frontal</span>
+                        </div>
+                        <div class="structure-item" data-structure="prefrontal">
+                            <div class="structure-color-dot" style="background-color: var(--color-prefrontal);"></div>
+                            <span>Corteza Prefrontal</span>
+                        </div>
+                        <div class="structure-item" data-structure="parietal">
+                            <div class="structure-color-dot" style="background-color: var(--color-parietal);"></div>
+                            <span>Lóbulo Parietal</span>
+                        </div>
+                        <div class="structure-item" data-structure="temporal">
+                            <div class="structure-color-dot" style="background-color: var(--color-temporal);"></div>
+                            <span>Lóbulo Temporal</span>
+                        </div>
+                        <div class="structure-item" data-structure="occipital">
+                            <div class="structure-color-dot" style="background-color: var(--color-occipital);"></div>
+                            <span>Lóbulo Occipital</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESTRUCTURAS SUBCORTICALES SECTION -->
+                <div class="menu-section">
+                    <h3 class="section-title" id="title-subcorte"><i class="fa-solid fa-circle-nodes"></i> Estructuras Subcorticales</h3>
+                    <div class="structure-list">
+                        <div class="structure-item" data-structure="talamo">
+                            <div class="structure-color-dot" style="background-color: var(--color-talamo);"></div>
+                            <span>Tálamo</span>
+                        </div>
+                        <div class="structure-item" data-structure="basales">
+                            <div class="structure-color-dot" style="background-color: var(--color-basales);"></div>
+                            <span>Ganglios Basales</span>
+                        </div>
+                        <div class="structure-item" data-structure="hipocampo">
+                            <div class="structure-color-dot" style="background-color: var(--color-hipocampo);"></div>
+                            <span>Hipocampo</span>
+                        </div>
+                        <div class="structure-item" data-structure="amigdala">
+                            <div class="structure-color-dot" style="background-color: var(--color-amigdala);"></div>
+                            <span>Amígdala</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <p>Haz clic en cualquier área para explorar</p>
+            </div>
+        </aside>
+
+        <!-- CANVAS 3D (VISOR) -->
+        <main class="canvas-viewport">
+            <!-- BOTONES FLOTANTES DE CONTROL -->
+            <div class="canvas-controls">
+                <button id="btn-split" class="circle-btn" title="Corte Sagital">
+                    <i class="fa-solid fa-arrows-left-right"></i>
+                </button>
+                <button id="btn-rotate" class="circle-btn active" title="Giro Automático">
+                    <i class="fa-solid fa-rotate"></i>
+                </button>
+            </div>
+
+            <!-- FICHA DINÁMICA FLOTANTE DERECHA -->
+            <section id="details-card" class="card info-card hidden">
+                <button id="btn-close-details" class="close-btn" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+                <div class="info-card-header">
+                    <span id="detail-tag" class="detail-badge">CORTEZA</span>
+                    <h2 id="detail-title">Lóbulo Frontal</h2>
+                </div>
+                <div class="info-card-body">
+                    <div class="info-group">
+                        <span class="info-label"><i class="fa-solid fa-circle-info"></i> ¿Qué hace?</span>
+                        <p id="detail-desc" class="info-text-desc">Planificación, toma de decisiones y control de la conducta.</p>
+                    </div>
+                    <div class="info-group">
+                        <span class="info-label"><i class="fa-solid fa-lightbulb"></i> Ejemplo fácil</span>
+                        <p id="detail-learning" class="info-text-learning">Encargado de la planificación de estrategias de estudio...</p>
+                        <img id="detail-image" src="" alt="Ejemplo visual" class="detail-image hidden" />
+                    </div>
+                </div>
+            </section>
+
+            <div class="canvas-overlay">
+                <div class="navigation-tips">
+                    <span><i class="fa-solid fa-arrows-rotate"></i> Arrastrar para rotar</span>
+                    <span><i class="fa-solid fa-magnifying-glass-plus"></i> Scroll para zoom</span>
+                    <span><i class="fa-solid fa-hand-pointer"></i> Clic para detalles</span>
+                </div>
+            </div>
+            <div class="rotation-slider-container">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <input type="range" id="rotation-slider" min="0" max="6.283" step="0.01" value="0">
+                <span>Rotar Modelo</span>
+            </div>
+
+            <div id="canvas-container"></div>
+            <div id="labels-container"></div>
+        </main>
+    </div>
+
+    <!-- Three.js Core + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- Modelo 3D embebido (sin necesidad de cargar archivos externos) -->
+    <script src="brain-data.js"></script>
+    <!-- Lógica principal -->
+    <script src="app.js"></script>
+</body>
+</html>
